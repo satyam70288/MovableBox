@@ -1,0 +1,29 @@
+
+.box{
+    width: 800px;
+    height: 500px;
+    background-color: rgb(238, 7, 7);
+    /* cursor: move; */
+    cursor: grab;
+
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 50px;
+    background-color: aqua;
+    color: black;
+    cursor: grab;
+    
+}
+
+/* .button{
+    padding: 10px;
+    background-color: blue;
+    color: black;
+    font-size: larger;
+    cursor:grab;
+} */
