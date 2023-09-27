@@ -79,8 +79,8 @@ function DraggableBox() {
     }
 
     // x innerwith with y clientHeight
-    if (newX > body.clientWidth - Number(size) + pixel) {
-      if (newY > body.clientHeight - Number(size) + pixel) {
+    if (newX +Number(size) + 100> body.clientWidth ) {
+      if (newY+Number(size) + 100 > body.clientHeight ) {
         newX = body.clientWidth - Number(size);
         newY = body.clientHeight - Number(size);
         console.log(body.clientWidth)
@@ -88,7 +88,7 @@ function DraggableBox() {
     }
     // y0 axis with x inner width
     if (newY < 100) {
-      if (newX > body.clientWidth - Number(size) + pixel) {
+      if (newX+Number(size) + 100 > body.clientWidth ) {
         newX = body.clientWidth - Number(size);
 
         // newX = 0;
@@ -105,8 +105,8 @@ function DraggableBox() {
       // alert()
       newY = body.clientHeight - Number(size) ;
     }
-    if (newY > body.clientHeight - Number(size) + pixel) {
-      if (newX > body.clientWidth - Number(size) + pixel) {
+    if (newY +Number(size) + 100> body.clientHeight ) {
+      if (newX+Number(size) + 100 > body.clientWidth ) {
 
         newX = body.clientWidth - Number(size);
         newY = body.clientHeight - Number(size);
