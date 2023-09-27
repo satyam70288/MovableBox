@@ -1,5 +1,5 @@
 
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -13,27 +13,31 @@ function App() {
 function DraggableBox() {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [position, setPosition] = useState({ x:0 , y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState(0)
+  const pixel = 0
+  const body = document.querySelector('body')
   // const [divWidth, setDivWidth] = useState({width:null,height:null});
   // const [divheight, setDivWidth] = useState(null)
   // const divRef = useRef(null);
-  
+
   const divElement = document.getElementsByClassName('draggable-box');
   useEffect(() => {
-    const val=getComputedStyle(document.documentElement)
-    .getPropertyValue('--size')
+    const val = getComputedStyle(document.documentElement)
+      .getPropertyValue('--size')
     Number(val);
     console.log(val);
     setSize(Number(val))
-    
+
   }, []);
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    console.log(window.innerWidth)
-    console.log(window.innerHeight)
-    console .log(typeof(size))
-    console.log((window.innerWidth -size)+100)
+    console.log(body.clientWidth)
+    console.log(body.clientHeight)
+    console.log(typeof (size))
+    console.log((body.clientWidth - size) + 100)
+    console.log(body.clientWidth - (Number(size)) + 100)
+    console.log(typeof (pixel))
     // console.log("width" + divWidth.width)
     // console.log("width" + divWidth.height)
     console.log(size)
@@ -47,71 +51,72 @@ function DraggableBox() {
     if (!isDragging) return;
 
     let newX = e.clientX - offset.x;
-    let newY= e.clientY - offset.y;
-    
+    let newY = e.clientY - offset.y;
+
     // x0 axisS
     if (newX < 100) {
       newX = 0;
     }
 
-  // x0axis with y0 axis
-     if (newX < 100) {
-      if(newY < 100){
-      newX = 0;
-      newY=0;
+    // x0axis with y0 axis
+    if (newX < 100) {
+      if (newY < 100) {
+        newX = 0;
+        newY = 0;
       }
     }
 
-  //y0axis with x0 axis
+    //y0axis with x0 axis
     if (newY < 100) {
-      if(newX < 100){
-      newX = 0;
-      newY=0;
+      if (newX < 100) {
+        newX = 0;
+        newY = 0;
       }
     }
     // x innerwith
-     if (newX  > window.innerWidth-(Number(size))+100) {
-      newX= window.innerWidth-Number(size);
+    if (newX +Number(size) + 100> body.clientWidth ) {
+      newX = body.clientWidth - Number(size)
     }
 
-    // x innerwith with y innerHeight
-     if (newX   > window.innerWidth-Number(size)+100) {
-      if(newY > window.innerHeight-Number(size)+100){
-      newX= window.innerWidth-Number(size);
-      newY = window.innerHeight - Number(size);
-      console.log(window.innerWidth)
+    // x innerwith with y clientHeight
+    if (newX > body.clientWidth - Number(size) + pixel) {
+      if (newY > body.clientHeight - Number(size) + pixel) {
+        newX = body.clientWidth - Number(size);
+        newY = body.clientHeight - Number(size);
+        console.log(body.clientWidth)
       }
     }
     // y0 axis with x inner width
     if (newY < 100) {
-      if(newX  > window.innerWidth-Number(size)+100) {
-        newX= window.innerWidth-Number(size);
-      
-      // newX = 0;
-      newY=0;
+      if (newX > body.clientWidth - Number(size) + pixel) {
+        newX = body.clientWidth - Number(size);
+
+        // newX = 0;
+        newY = 0;
       }
     }
-     if (newY<100) {
-      
+    if (newY < 100) {
+
       newY = 0;
     }
-    
-    
-     if (newY > window.innerHeight-Number(size)+100) {
-      newY = window.innerHeight - Number(size);
+
+
+     if (newY + Number(size) + 100 > body.clientHeight) {
+      // alert()
+      newY = body.clientHeight - Number(size) ;
     }
-    if (newY > window.innerHeight-Number(size)+100) {
-      if(newX   > window.innerWidth-Number(size)+100){
-        
-      newX= window.innerWidth-Number(size);
-      newY = window.innerHeight - Number(size);
-      console.log(window.innerWidth)
+    if (newY > body.clientHeight - Number(size) + pixel) {
+      if (newX > body.clientWidth - Number(size) + pixel) {
+
+        newX = body.clientWidth - Number(size);
+        newY = body.clientHeight - Number(size);
+        console.log(body.clientWidth)
       }
     }
-        setPosition({
+    setPosition({
       x: newX,
       y: newY
-      
+
     });
     console.log(newX, newY);
   };
@@ -123,20 +128,21 @@ function DraggableBox() {
   return (
     <div
       className={`draggable-box ${isDragging ? 'dragging' : ''}`}
-       style={{ left: position.x, top: position.y }}
+      style={{ left: position.x, top: position.y }}
       //  ref={divRef}
 
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-    ><div className='box' 
+    >
+      {/* <div className='box' 
     // onMouseMove={handleMouseMove}
     // onMouseDown={handleMouseDown}
     // onMouseUp={handleMouseUp}
     >
       Drag me!
-    </div>
-      
+    </div> */}
+
     </div>
   );
 }
