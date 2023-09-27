@@ -1,7 +1,7 @@
 
 /* App.css */
 :root{
-  --width:600px;
+  --size:600;
 }
 .App {
   display: flex;
@@ -13,9 +13,9 @@
 }
 
 .draggable-box {
-  width: var(--width);
-  height: 600px;
-  background-color: #3498db;
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  background-color: #ba34db;
   color: white;
   cursor: move;
   /* display: flex;
@@ -32,7 +32,7 @@
 }
 .box{
   background-color: red;
-  width: var(--width);
+  width: calc(var(--size) * 1px)px;
   cursor: drag;
   height: 30px;
 }

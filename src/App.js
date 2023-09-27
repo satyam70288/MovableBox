@@ -14,35 +14,29 @@ function DraggableBox() {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [position, setPosition] = useState({ x:0 , y: 0 });
-  const [divWidth, setDivWidth] = useState(null);
-  const [divheight, setDivHeight] = useState(null)
-  const divRef = useRef(null);
-
-  // const divElement = document.getElementsByClassName('draggable-box');
+  const [size, setSize] = useState(0)
+  // const [divWidth, setDivWidth] = useState({width:null,height:null});
+  // const [divheight, setDivWidth] = useState(null)
+  // const divRef = useRef(null);
+  
+  const divElement = document.getElementsByClassName('draggable-box');
   useEffect(() => {
-    // Function to update the div width
-    const updateDivWidth = () => {
-      if (divRef.current) {
-        setDivWidth(divRef.current.offsetWidth);
-        setDivHeight(divRef.current.offsetheight);
-      }
-    };
-    updateDivWidth();
-
-    // Attach a resize event listener to update the width when the window is resized
-    window.addEventListener('resize', updateDivWidth);
-
-    // Cleanup by removing the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', updateDivWidth);
-    };
-  }, [divWidth]);
+    const val=getComputedStyle(document.documentElement)
+    .getPropertyValue('--size')
+    Number(val);
+    console.log(val);
+    setSize(Number(val))
+    
+  }, []);
   const handleMouseDown = (e) => {
     setIsDragging(true);
     console.log(window.innerWidth)
     console.log(window.innerHeight)
-    console.log("width" + divWidth)
-    console.log("height" + divheight)
+    console .log(typeof(size))
+    console.log((window.innerWidth -size)+100)
+    // console.log("width" + divWidth.width)
+    // console.log("width" + divWidth.height)
+    console.log(size)
     setOffset({
       x: e.clientX - position.x,
       y: e.clientY - position.y,
@@ -54,8 +48,8 @@ function DraggableBox() {
 
     let newX = e.clientX - offset.x;
     let newY= e.clientY - offset.y;
-    // Ensure the box sticks to the left (200 pixels)
-    // x0 axis
+    
+    // x0 axisS
     if (newX < 100) {
       newX = 0;
     }
@@ -76,22 +70,22 @@ function DraggableBox() {
       }
     }
     // x innerwith
-    else if (newX  > window.innerWidth-divWidth+100) {
-      newX= window.innerWidth-divWidth;
+     if (newX  > window.innerWidth-(Number(size))+100) {
+      newX= window.innerWidth-Number(size);
     }
 
     // x innerwith with y innerHeight
-     if (newX+100   > window.innerWidth-divWidth) {
-      if(newY > window.innerHeight-700){
-      newX= window.innerWidth-divWidth;
-      newY = window.innerHeight - 600;
+     if (newX   > window.innerWidth-Number(size)+100) {
+      if(newY > window.innerHeight-Number(size)+100){
+      newX= window.innerWidth-Number(size);
+      newY = window.innerHeight - Number(size);
       console.log(window.innerWidth)
       }
     }
     // y0 axis with x inner width
     if (newY < 100) {
-      if(newX  > window.innerWidth-divWidth+100) {
-        newX= window.innerWidth-divWidth;
+      if(newX  > window.innerWidth-Number(size)+100) {
+        newX= window.innerWidth-Number(size);
       
       // newX = 0;
       newY=0;
@@ -103,10 +97,17 @@ function DraggableBox() {
     }
     
     
-    else if (newY > window.innerHeight-650) {
-      newY = window.innerHeight - 600;
+     if (newY > window.innerHeight-Number(size)+100) {
+      newY = window.innerHeight - Number(size);
     }
-
+    if (newY > window.innerHeight-Number(size)+100) {
+      if(newX   > window.innerWidth-Number(size)+100){
+        
+      newX= window.innerWidth-Number(size);
+      newY = window.innerHeight - Number(size);
+      console.log(window.innerWidth)
+      }
+    }
         setPosition({
       x: newX,
       y: newY
@@ -123,7 +124,7 @@ function DraggableBox() {
     <div
       className={`draggable-box ${isDragging ? 'dragging' : ''}`}
        style={{ left: position.x, top: position.y }}
-       ref={divRef}
+      //  ref={divRef}
 
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
