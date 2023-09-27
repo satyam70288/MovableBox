@@ -1,6 +1,8 @@
 
 /* App.css */
-
+:root{
+  --width:600px;
+}
 .App {
   display: flex;
   justify-content: center;
@@ -11,16 +13,17 @@
 }
 
 .draggable-box {
-  width: 800px;
+  width: var(--width);
   height: 600px;
   background-color: #3498db;
   color: white;
+  cursor: move;
   /* display: flex;
   justify-content: center;
   align-items: center; */
-  cursor: move;
+ 
   position: absolute;
-  user-select: none;
+  
   transition: background-color 0.3s ease;
 }
 
@@ -29,6 +32,7 @@
 }
 .box{
   background-color: red;
-  width: 800px;
+  width: var(--width);
+  cursor: drag;
   height: 30px;
 }
